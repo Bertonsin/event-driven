@@ -1,6 +1,10 @@
 interface QuizProps {
   id: string
-  questions: { name: string, answers: { value: string, description: string }[], correctAnswer: string }[]
+  questions: {
+    name: string,
+    answers: { value: string, description: string }[],
+    correctAnswer: string
+  }[]
 }
 
 export class Quiz {
