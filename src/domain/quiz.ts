@@ -1,5 +1,7 @@
+import { randomUUIDv7 } from 'bun'
+
 interface QuizProps {
-  id: string
+  id?: string
   questions: {
     name: string,
     answers: { value: string, description: string }[],
@@ -13,7 +15,10 @@ export class Quiz {
   }
 
   static create(props: QuizProps) {
-    return new Quiz(props)
+    return new Quiz({
+      id: randomUUIDv7(),
+      questions: props.questions
+    })
   }
 
   get id() {
