@@ -14,6 +14,6 @@ export class QuizSubmittedEvent implements Event {
   }
 
   notify(): void {
-    this.subscribers.forEach((subscriber)=>subscriber.update(this))
+    this.subscribers.forEach((subscriber) => subscriber.update(this))
   }
 } 

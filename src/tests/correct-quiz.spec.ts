@@ -14,7 +14,7 @@ describe("Correct quiz", () => {
   it("should be able to submit a quiz", async () => {
     const quiz = new Quiz({ id: '01', questions: [{ answers: [{ value: 'a', description: 'Sim' }, { value: 'b', description: 'Não' }], name: 'Typescript é bom?', correctAnswer: 'a' }, { answers: [{ value: 'a', description: 'Sim' }, { value: 'b', description: 'Não' }], name: 'Golang é bom?', correctAnswer: 'b' }] })
     repository.save(quiz)
-    const result = await usecase.execute({ id: quiz.id, answers: [{ value: 'b' }, { value: 'b' }] })
+    const result = await usecase.execute({ id: quiz.id ?? '', answers: [{ value: 'b' }, { value: 'b' }] })
     expect(result.score).toBeDefined()
     expect(result.score).toBe(50)
   })

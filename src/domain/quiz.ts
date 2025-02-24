@@ -1,4 +1,6 @@
-import { randomUUIDv7 } from 'bun'
+import { randomUUIDv7 } from 'bun';
+import { QuizSubmittedEvent } from '../events/quiz-submitted-event';
+import { EventHandler } from './../events/event-handler';
 
 interface QuizProps {
   id?: string
@@ -15,6 +17,7 @@ export class Quiz {
   }
 
   static create(props: QuizProps) {
+    EventHandler.instance.publish(new QuizSubmittedEvent());
     return new Quiz({
       id: randomUUIDv7(),
       questions: props.questions
