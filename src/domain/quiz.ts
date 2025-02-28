@@ -1,6 +1,6 @@
 import { randomUUIDv7 } from 'bun';
 import { QuizSubmittedEvent } from '../events/quiz-submitted-event';
-import { EventHandler } from './../events/event-handler';
+import { Observer } from './observer';
 
 interface QuizProps {
   id?: string
@@ -11,21 +11,26 @@ interface QuizProps {
   }[]
 }
 
-export class Quiz {
+export class Quiz extends Observer {
   constructor(readonly props: QuizProps) {
+    super();
     Object.assign(props, this)
   }
 
   static create(props: QuizProps) {
-    EventHandler.instance.publish(new QuizSubmittedEvent());
     return new Quiz({
       id: randomUUIDv7(),
       questions: props.questions
     })
   }
 
+  submit() {
+    const event = new QuizSubmittedEvent(this.id, 'my email')
+    this.notify("QuizSubmitted", event)
+  }
+
   get id() {
-    return this.props.id
+    return this.props.id ?? ''
   }
 
   get questions() {
